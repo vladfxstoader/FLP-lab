@@ -1,0 +1,9 @@
+fib1(0,1).
+fib1(1,1).
+fib1(N, Res):- fib1(1,N,1,1,Res). % facem o functie auxiliara care memorizeaza rezultatele intermediare
+
+fib1(N,N,_,Res,Res). % cand am ajuns la al n-lea termen avem rezultatul
+fib1(I,N,A,B,Res):-
+	J is I+1, % daca nu am ajuns la al n-lea termen, facem suma celor doi anteriori si mergem mai departe
+	C is A+B,
+	fib1(J,N,B,C,Res).

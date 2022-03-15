@@ -1,0 +1,54 @@
+% Tema lab 3 - Toader Vlad-Marian, grupa 242
+% ==========================================
+% Ex. 3 - labirintul
+
+% connected(1,2).
+% connected(3,4).
+% connected(5,6).
+% connected(7,8).
+% connected(9,10).
+% connected(12,13).
+% connected(13,14).
+% connected(15,16).
+% connected(17,18).
+% connected(19,20).
+% connected(4,1).
+% connected(6,3).
+% connected(4,7).
+% connected(6,11).
+% connected(14,9).
+% connected(11,15).
+% connected(16,12).
+% connected(14,17).
+% connected(16,19).
+
+connected(1,2).
+connected(2,1).
+connected(1,3).
+connected(3,4).
+
+% path / 2, path(X,Y) - true daca exista un drum de la X la Y
+
+path(X, Y) :- 
+	connected(X,Y).
+path(X, Y) :-
+	connected(X, Z),
+	path(Z, Y).
+
+% solutia pentru a elimina ciclurile este sa avem o lista de noduri vizitate
+
+path1(X,Y,_) :-
+	connected(X,Y).
+path1(X, Y, V) :- not(member(X, V)), connected(X,Z), path1(Z, Y, [X|V]).
+
+% ===========================================================================
+
+% Sa se gaseasca un unificator pentru termenii (x*y)*z = u*(u)^(-1).
+
+% Lista solutiei						Lista de rezolvat						Operatie
+% multimea vida							(x*y)*z = u*(u)^(-1)						DESCOMPUNE
+% multimea vida							(x*y) = u, z = (u)^(-1)						REZOLVA
+% u = (x*y)							z = (x*y)^(-1)							REZOLVA
+% u = (x*y), z = (x*y)^(-1)					multimea vida							FINAL
+
+% Am gasit unificatorul { (x*y)/u, (x*y)^(-1)/z }.
